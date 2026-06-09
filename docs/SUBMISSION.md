@@ -6,7 +6,7 @@ Based on **CIG_DEV_PS.pdf** expected deliverables.
 
 | # | Deliverable | Your project | Action |
 |---|-------------|--------------|--------|
-| 1 | **GitHub repository** | `cig-project` | Push code; share repo URL with judges |
+| 1 | **GitHub repository** | [QuantumHexa/CIG_project](https://github.com/QuantumHexa/CIG_project) | Share repo URL with judges ✓ |
 | 2 | **Working deployed demo** | Local + deploy | Deploy API (Render/Railway) + frontend (Vercel); add live URLs to README |
 | 3 | **README** | `README.md` | Setup, features, demo accounts, deploy links |
 | 4 | **Database schema** | `docs/DATABASE_SCHEMA.md` + `backend/prisma/schema.prisma` | Include in repo ✓ |

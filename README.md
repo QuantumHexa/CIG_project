@@ -109,18 +109,12 @@ See **[docs/SUBMISSION.md](docs/SUBMISSION.md)** for the full checklist from the
 4. PPT presentation (your team)
 5. Demo video (your team)
 
-**Push to GitHub** (repo name: `cig-project`):
+**Repository:** https://github.com/QuantumHexa/CIG_project
 
 ```powershell
 cd "d:\CIG project"
-gh auth login
-.\scripts\push-to-github.ps1
-```
-
-Or manually:
-
-```powershell
-gh repo create cig-project --public --source=. --remote=origin --push
+git remote add origin https://github.com/QuantumHexa/CIG_project.git
+git push -u origin main
 ```
 
 ## License
