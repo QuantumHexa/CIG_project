@@ -3,7 +3,10 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
+// Load backend/.env first (correct cwd for Prisma SQLite paths)
+dotenv.config({ path: path.resolve(__dirname, "../../.env") });
+// Optional root overrides (non-database vars only)
+dotenv.config({ path: path.resolve(__dirname, "../../../.env"), override: false });
 
 export const env = {
   port: Number(process.env.PORT ?? 4000),
