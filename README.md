@@ -97,6 +97,32 @@ npm run dev:frontend
 | Code quality | 5% | TypeScript, modular services |
 | Innovation | 5% | PWA, infinite scroll, QR share |
 
+## Submitting for CIG Dev
+
+See **[docs/SUBMISSION.md](docs/SUBMISSION.md)** for the full checklist from the problem statement.
+
+**Mandatory deliverables:**
+
+1. GitHub repo (this project)
+2. Live deployed demo
+3. README + DB schema + architecture diagram (in `docs/`)
+4. PPT presentation (your team)
+5. Demo video (your team)
+
+**Push to GitHub** (repo name: `cig-project`):
+
+```powershell
+cd "d:\CIG project"
+gh auth login
+.\scripts\push-to-github.ps1
+```
+
+Or manually:
+
+```powershell
+gh repo create cig-project --public --source=. --remote=origin --push
+```
+
 ## License
 
 MIT — for academic / competition submission.
