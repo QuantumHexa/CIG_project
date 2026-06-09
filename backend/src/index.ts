@@ -20,7 +20,7 @@ const app = express();
 const server = http.createServer(app);
 
 const io = new Server(server, {
-  cors: { origin: env.clientUrl, credentials: true },
+  cors: { origin: env.clientUrls, credentials: true },
 });
 
 setSocketServer(io);
@@ -41,7 +41,7 @@ app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
 app.use(compression());
 app.use(
   cors({
-    origin: env.clientUrl,
+    origin: env.clientUrls,
     credentials: true,
   })
 );

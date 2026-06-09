@@ -23,7 +23,7 @@ Centralized platform for clubs and photographers to upload, organize, search, an
 ### Prerequisites
 
 - Node.js 20+
-- Docker optional (PostgreSQL for production; SQLite used by default)
+- Docker (PostgreSQL for local dev) or [Neon](https://neon.tech) free DB
 - Optional: AWS credentials, `HF_API_TOKEN` for richer AI tags
 
 ### Setup
@@ -32,13 +32,12 @@ Centralized platform for clubs and photographers to upload, organize, search, an
 # 1. Environment
 copy .env.example .env
 
-# 2. Install & database (SQLite — no Docker required)
+# 2. Database & install
+docker compose up -d
+copy .env.example backend\.env
 npm run install:all
 npm run db:push --prefix backend
 npm run db:seed --prefix backend
-
-# Optional: PostgreSQL via Docker (set DATABASE_URL in .env, change provider in prisma/schema.prisma)
-# docker compose up -d
 
 # 3. Run (two terminals)
 npm run dev:backend
@@ -73,7 +72,7 @@ npm run dev:frontend
 - [x] Database schema (`docs/DATABASE_SCHEMA.md` + Prisma)
 - [x] Architecture diagram (`docs/ARCHITECTURE.md`)
 - [x] API overview (`docs/API.md`)
-- [ ] Deploy demo (Railway/Render + Vercel — see docs)
+- [ ] Deploy demo — see **[docs/DEPLOY.md](docs/DEPLOY.md)** (Render + Vercel)
 - [x] Presentation (`docs/CIG_Project_Presentation.pptx`)
 - [ ] Demo video (team)
 
