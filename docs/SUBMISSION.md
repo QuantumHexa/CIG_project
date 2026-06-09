@@ -11,7 +11,7 @@ Based on **CIG_DEV_PS.pdf** expected deliverables.
 | 3 | **README** | `README.md` | Setup, features, demo accounts, deploy links |
 | 4 | **Database schema** | `docs/DATABASE_SCHEMA.md` + `backend/prisma/schema.prisma` | Include in repo ✓ |
 | 5 | **Architecture diagram** | `docs/ARCHITECTURE.md` (Mermaid) | Export to PNG for PPT if needed |
-| 6 | **Presentation / PPT** | Team creates | Cover problem, features, tech stack, demo flow, evaluation alignment |
+| 6 | **Presentation / PPT** | `docs/CIG_Project_Presentation.pptx` | 17 slides — problem, features, tech, demo, rubric ✓ |
 | 7 | **Demo video** | Team records | 5–10 min walkthrough: login → event → upload → search → face match → download |
 
 ## Optional (extra marks)

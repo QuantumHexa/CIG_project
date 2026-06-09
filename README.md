@@ -74,7 +74,8 @@ npm run dev:frontend
 - [x] Architecture diagram (`docs/ARCHITECTURE.md`)
 - [x] API overview (`docs/API.md`)
 - [ ] Deploy demo (Railway/Render + Vercel — see docs)
-- [ ] Presentation / demo video (team)
+- [x] Presentation (`docs/CIG_Project_Presentation.pptx`)
+- [ ] Demo video (team)
 
 ## Deployment hints
 
