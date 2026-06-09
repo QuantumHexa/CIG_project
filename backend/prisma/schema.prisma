@@ -1,0 +1,183 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  PHOTOGRAPHER
+  CLUB_MEMBER
+  VIEWER
+}
+
+enum MediaType {
+  PHOTO
+  VIDEO
+}
+
+enum TagSource {
+  AI
+  USER
+}
+
+enum NotificationType {
+  LIKE
+  COMMENT
+  TAG
+  SHARE
+}
+
+model User {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  passwordHash    String
+  name            String
+  role            Role      @default(VIEWER)
+  avatarUrl       String?
+  faceDescriptor  Json?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  eventsCreated   Event[]   @relation("EventCreator")
+  mediaUploaded   Media[]
+  likes           Like[]
+  comments        Comment[]
+  favorites       Favorite[]
+  taggedIn        MediaUserTag[] @relation("TaggedUser")
+  tagsCreated     MediaUserTag[] @relation("Tagger")
+  notifications   Notification[] @relation("Recipient")
+  actors          Notification[] @relation("Actor")
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  date        DateTime
+  category    String
+  clubName    String
+  isPublic    Boolean  @default(true)
+  createdById String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  createdBy   User     @relation("EventCreator", fields: [createdById], references: [id])
+  albums      Album[]
+  media       Media[]
+}
+
+model Album {
+  id        String   @id @default(cuid())
+  name      String
+  eventId   String
+  createdAt DateTime @default(now())
+
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  media     Media[]
+}
+
+model Media {
+  id           String    @id @default(cuid())
+  eventId      String
+  albumId      String?
+  uploadedById String
+  title        String?
+  url          String
+  thumbnailUrl String?
+  storageKey   String
+  type         MediaType @default(PHOTO)
+  mimeType     String
+  sizeBytes    Int
+  width        Int?
+  height       Int?
+  isPublic     Boolean   @default(true)
+  faceData     Json?
+  createdAt    DateTime  @default(now())
+
+  event        Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  album        Album?    @relation(fields: [albumId], references: [id], onDelete: SetNull)
+  uploadedBy   User      @relation(fields: [uploadedById], references: [id])
+  tags         MediaTag[]
+  likes        Like[]
+  comments     Comment[]
+  favorites    Favorite[]
+  userTags     MediaUserTag[]
+}
+
+model MediaTag {
+  id      String    @id @default(cuid())
+  mediaId String
+  label   String
+  source  TagSource @default(AI)
+
+  media   Media     @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@index([label])
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  userId    String
+  mediaId   String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  media     Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, mediaId])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  userId    String
+  mediaId   String
+  body      String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  media     Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  userId    String
+  mediaId   String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  media     Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, mediaId])
+}
+
+model MediaUserTag {
+  id           String   @id @default(cuid())
+  mediaId      String
+  taggedUserId String
+  taggedById   String
+  createdAt    DateTime @default(now())
+
+  media        Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  taggedUser   User     @relation("TaggedUser", fields: [taggedUserId], references: [id], onDelete: Cascade)
+  taggedBy     User     @relation("Tagger", fields: [taggedById], references: [id], onDelete: Cascade)
+
+  @@unique([mediaId, taggedUserId])
+}
+
+model Notification {
+  id          String           @id @default(cuid())
+  userId      String
+  actorId     String?
+  type        NotificationType
+  message     String
+  mediaId     String?
+  read        Boolean          @default(false)
+  createdAt   DateTime         @default(now())
+
+  user        User             @relation("Recipient", fields: [userId], references: [id], onDelete: Cascade)
+  actor       User?            @relation("Actor", fields: [actorId], references: [id], onDelete: SetNull)
+}
