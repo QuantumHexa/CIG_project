@@ -8,15 +8,9 @@ dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 // Optional root overrides (non-database vars only)
 dotenv.config({ path: path.resolve(__dirname, "../../../.env"), override: false });
 
-const clientUrls = (process.env.CLIENT_URL ?? "http://localhost:5173")
-  .split(",")
-  .map((s) => s.trim())
-  .filter(Boolean);
-
 export const env = {
   port: Number(process.env.PORT ?? 4000),
-  clientUrl: clientUrls[0] ?? "http://localhost:5173",
-  clientUrls,
+  clientUrl: process.env.CLIENT_URL ?? "http://localhost:5173",
   jwtSecret: process.env.JWT_SECRET ?? "dev-secret-change-in-production",
   jwtExpiresIn: process.env.JWT_EXPIRES_IN ?? "7d",
   databaseUrl: process.env.DATABASE_URL ?? "",

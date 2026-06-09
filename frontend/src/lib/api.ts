@@ -1,4 +1,4 @@
-import { apiUrl } from "./config";
+const API = "/api";
 
 function headers(json = true): HeadersInit {
   const token = localStorage.getItem("token");
@@ -17,7 +17,7 @@ function parseError(body: unknown, fallback: string): string {
 }
 
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(apiUrl(path.startsWith("/api") ? path : `/api${path}`), {
+  const res = await fetch(`${API}${path}`, {
     ...init,
     headers: { ...headers(true), ...init?.headers },
   });
@@ -37,7 +37,7 @@ export async function uploadFiles(
   const token = localStorage.getItem("token");
   if (!token) throw new Error("Please sign in before uploading");
 
-  const res = await fetch(apiUrl(path.startsWith("/api") ? path : `/api${path}`), {
+  const res = await fetch(`${API}${path}`, {
     method: "POST",
     headers: token ? { Authorization: `Bearer ${token}` } : {},
     body: formData,

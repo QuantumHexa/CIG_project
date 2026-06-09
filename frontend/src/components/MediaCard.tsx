@@ -1,6 +1,10 @@
 import { Heart, MessageCircle, Download, Star } from "lucide-react";
-import { apiUrl, mediaUrl } from "../lib/config";
 import { api } from "../lib/api";
+
+function resolveMediaUrl(url: string): string {
+  if (url.startsWith("http")) return url;
+  return url.startsWith("/") ? url : `/${url}`;
+}
 import { useAuth } from "../lib/auth";
 
 export type MediaItem = {
@@ -18,7 +22,7 @@ export type MediaItem = {
 
 export function MediaCard({ item }: { item: MediaItem }) {
   const { user } = useAuth();
-  const src = mediaUrl(item.thumbnailUrl || item.url);
+  const src = resolveMediaUrl(item.thumbnailUrl || item.url);
 
   const like = () => {
     if (!user) return alert("Sign in to like");
@@ -32,14 +36,14 @@ export function MediaCard({ item }: { item: MediaItem }) {
 
   const download = () => {
     if (!user) return alert("Sign in to download (watermarked)");
-    window.open(apiUrl(`/api/media/${item.id}/download`), "_blank");
+    window.open(`/api/media/${item.id}/download`, "_blank");
   };
 
   return (
     <article className="card group overflow-hidden">
       <div className="relative aspect-[4/3] overflow-hidden bg-slate-800">
         {item.type === "VIDEO" ? (
-          <video src={mediaUrl(item.url)} controls className="h-full w-full object-cover" />
+          <video src={resolveMediaUrl(item.url)} controls className="h-full w-full object-cover" />
         ) : (
           <img
             src={src}

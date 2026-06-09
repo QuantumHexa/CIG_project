@@ -23,8 +23,7 @@ Centralized platform for clubs and photographers to upload, organize, search, an
 ### Prerequisites
 
 - Node.js 20+
-- Docker (PostgreSQL for local dev) or [Neon](https://neon.tech) free DB
-- Optional: AWS credentials, `HF_API_TOKEN` for richer AI tags
+- Optional: Docker (PostgreSQL), AWS credentials, `HF_API_TOKEN` for richer AI tags
 
 ### Setup
 
@@ -58,7 +57,7 @@ npm run dev:frontend
 ## Project structure
 
 ```
-├── backend/          Express + Prisma + PostgreSQL
+├── backend/          Express + Prisma + SQLite
 ├── frontend/         React + Vite + Tailwind
 ├── docs/             Architecture, DB schema, API
 ├── docker-compose.yml
@@ -72,16 +71,8 @@ npm run dev:frontend
 - [x] Database schema (`docs/DATABASE_SCHEMA.md` + Prisma)
 - [x] Architecture diagram (`docs/ARCHITECTURE.md`)
 - [x] API overview (`docs/API.md`)
-- [ ] Deploy demo — see **[docs/DEPLOY.md](docs/DEPLOY.md)** (Render + Vercel)
 - [x] Presentation (`docs/CIG_Project_Presentation.pptx`)
 - [ ] Demo video (team)
-
-## Deployment hints
-
-1. **PostgreSQL:** Neon, Supabase, or Railway  
-2. **API:** Render/Railway with `DATABASE_URL`, `JWT_SECRET`, S3 vars  
-3. **Frontend:** Vercel/Netlify with `VITE_API_URL` or reverse proxy  
-4. Run `prisma db push` and `npm run db:seed` on first deploy  
 
 ## Evaluation alignment
 
@@ -104,7 +95,7 @@ See **[docs/SUBMISSION.md](docs/SUBMISSION.md)** for the full checklist from the
 **Mandatory deliverables:**
 
 1. GitHub repo (this project)
-2. Live deployed demo
+2. Working local demo (http://localhost:5173)
 3. README + DB schema + architecture diagram (in `docs/`)
 4. PPT presentation (your team)
 5. Demo video (your team)

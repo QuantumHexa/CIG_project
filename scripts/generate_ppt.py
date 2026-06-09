@@ -314,11 +314,10 @@ def main():
         [
             "Frontend:  React 19 + Vite + Tailwind CSS + TanStack Query",
             "Backend:   Node.js + Express + TypeScript",
-            "Database:  Prisma ORM + SQLite (dev) / PostgreSQL (prod)",
+            "Database:  Prisma ORM + SQLite",
             "Storage:   AWS S3 SDK v3 + Sharp image processing",
             "Realtime:  Socket.io (notifications)",
             "Auth:      JWT + bcrypt + role middleware",
-            "Deploy:    Render/Railway (API) + Vercel (frontend)",
         ],
     )
 
@@ -403,7 +402,7 @@ def main():
             "✓ Architecture diagram (Mermaid)",
             "✓ API documentation (docs/API.md)",
             "✓ This presentation",
-            "○ Live deployed demo (Render + Vercel) — in progress",
+            "✓ Local working demo (localhost:5173)",
             "○ Demo video (5–10 min walkthrough) — record next",
         ],
     )
